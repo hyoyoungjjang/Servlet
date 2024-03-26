@@ -33,7 +33,7 @@ public class RequestGetServlet extends HttpServlet {
 		//System.out.println("GET요청 정상적으로 받았습니다.");
 		
 		/*
-		 * 첫번째 매개변수인 request에는 요청시 전달된 내용드링 담겨있음(사용자가 입력한 값 값, 오쳥방식, 요청한사람의 ip주소)
+		 * 첫번째 매개변수인 request에는 요청시 전달된 내용드링 담겨있음(사용자가 입력한 값, 오쳥방식, 요청한사람의 ip주소)
 		 * 두번째 매개변수인 response는 요청 처리 후 응답할 때 사용되는 객체
 		 * 
 		 * 요청 처리를 위해서 요청시 전달된 값들 추출
