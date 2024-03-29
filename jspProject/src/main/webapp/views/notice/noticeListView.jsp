@@ -41,7 +41,7 @@
         <% if (loginUser != null && loginUser.getUserId().equals("admin")){%>
             <!--현제 로그인한 사용자가 관리자일 때-->
             <div align="rigth" style="width: 850px; margin-bottom: 4px;">
-                <a href=""  class="btn btn=sm btn-secondary">글쓰기</a>
+                <a href="<%=contextPath%>/enroll.no"  class="btn btn=sm btn-secondary">글쓰기</a>
             </div>
             <%}%>
         <table class="list-area" align="center">
@@ -61,7 +61,7 @@
                 <% } else {%>
                     <!--공지사항이 있을 경우-->
                     <% for(Notice n : list) { %>
-                        <tr>
+                        <tr >
                             <td><%=n.getNoticeNO()%></td>
                             <td><%=n.getNoticeTitle()%></td>
                             <td><%=n.getNoticeWriter()%></td>
@@ -73,5 +73,28 @@
             </tbody>
         </table>
     </div>
+
+    <script>
+        // const trList = document.querySelectorAll(".list-area > tbody > tr");
+       
+        // for(const tr of trList){
+        //     tr.onclick = function(){
+        //         //url /kh/detaill.no
+        //         const noticeNo = this.children[0].innerText;
+
+
+        //         location.href = "<%=contextPath%>/detaill.no?num=" + noticeNO;
+        //     }
+        // }
+
+        $(function(){
+            $(".list-area > tbody > tr").click(function(){
+                const noticeNO = $(this).children().eq(0).text();
+                location.href="<%=contextPath%>/detail.no?num=" + noticeNO;
+            })
+        })
+    </script>
+    
+    
 </body>
 </html>
