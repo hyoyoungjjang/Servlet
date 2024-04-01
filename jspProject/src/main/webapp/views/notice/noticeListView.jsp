@@ -83,7 +83,7 @@
         //         const noticeNo = this.children[0].innerText;
 
 
-        //         location.href = "<%=contextPath%>/detaill.no?num=" + noticeNO;
+        //  	   location.href = "<%=contextPath%>/detaill.no?num=" + noticeNO;
         //     }
         // }
 
