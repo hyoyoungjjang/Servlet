@@ -89,6 +89,17 @@ public class MemberService {
 		
 	}
 	
+	public int idCheck(String checkId) {
+		
+		Connection conn = getConnection();
+		int count = new MemberDao().idCheck(conn, checkId);
+		
+		close(conn);
+		
+		return count;
+		
+	}
+	
 	
 	
 	

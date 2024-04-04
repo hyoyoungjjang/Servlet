@@ -81,7 +81,7 @@ public class BoardUpdateController extends HttpServlet {
 				request.getSession().setAttribute("alertMsg", "성공적으로 수정하였습니다.");
 				response.sendRedirect(request.getContextPath() + "/detail.bo?bno=" + boardNo);
 			}else {
-				request.setAttribute("errorPage", "게시글 수정 실패");
+				request.setAttribute("errorMsg", "게시글 수정 실패");
 				request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
 			}
 		}	
