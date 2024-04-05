@@ -17,9 +17,10 @@
         background: black;
         color: white;
         width: 1000px;
-        height: 500px;
+        height: auto;
         margin: auto;
         margin-top: 50px;
+        padding-bottom: 24px;
     }
 
     .outer table{
@@ -80,6 +81,106 @@
             <a href="<%=contextPath %>/updateForm.bo?bno=<%=b.getBoardNo() %>" class="btn btn-sm btn-warning">수정하기</a>
             <a href="<%=contextPath %>/delete.bo?bno=<%=b.getBoardNo() %>" class="btn btn-sm btn-danger">삭제하기</a>
             <%} %>
+        </div>
+
+        <br>
+
+        <div id="reply-area">
+            <table align="center">
+                <thead>
+                    <tr>
+                        <th>댓글작성</th>
+                        <%if(loginUser != null) { %>
+                        <td>
+                            <textarea id="reply-content" name="" id="" cols="50" rows="3" style="resize: none;"></textarea>
+                        </td>
+                        <td>
+                            <button onclick="insertReply()">댓글등록</button>
+                        </td>
+                        <%} else { %>
+                        <td>
+                            <textarea id="reply-content" name="" id="" cols="50" rows="3" style="resize: none;" readonly></textarea>
+                        </td>
+                        <td>
+                            <button >댓글등록</button>
+                        </td>
+                        <%} %>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                    <!-- <tr>
+                        <td>user06</td>
+                        <td>댓글남깁니다</td>
+                        <td>2024/03/05</td>
+                    </tr>
+                    <tr>
+                        <td>sdfa</td>
+                        <td>댓글남깁니다</td>
+                        <td>2024/03/05</td>
+                    </tr>
+                    <tr>
+                        <td>erswgsa</td>
+                        <td>댓글남깁니다</td>
+                        <td>2024/03/05</td>
+                    </tr> -->
+                </tbody>
+            </table>
+
+            <script>
+                window.onload = function(){
+                    selectReplyList();
+                    setInterval(selectReplyList, 2000);
+                }
+
+                function selectReplyList(){
+                    $.ajax({
+                        url:"rlist.bo",
+                        data:{
+                            bno:<%=b.getBoardNo()%>
+                        },
+                        success: function(res){
+
+                            let str = "";
+                            for(let reply of res){
+                                str += ("<tr>" +
+                                    "<td>" + reply.replyWriter + "</td>" +
+                                    "<td>" + reply.replyContent + "</td>" +
+                                    "<td>" + reply.createDate + "</td>" +
+                                    "</tr>")
+                                   
+                        } 
+                        document.querySelector("#reply-area tbody").innerHTML = str;
+
+                        },
+                        error: function(){
+                            console.log("댓글 조회중 ajax통신 실패")
+                        }
+                    })
+                }
+
+                function insertReply(){
+                    const boardNo = <%=b.getBoardNo()%>;
+                    const content = document.querySelector("#reply-content").value;
+
+                    $.ajax({
+                        url : "rinsert.bo",
+                        data : {
+                            bno : boardNo,
+                            content : content
+                        },
+                        type : "POST",
+                        success : function(res){
+                            document.querySelector("#reply-content").value="";
+                            selectReplyList();
+                        },
+                        error : function(){
+                            console.log("댓글 작성중 ajax통신 실패")
+                        }
+
+                    })
+                }
+            </script>
         </div>
     </div>
 </body>

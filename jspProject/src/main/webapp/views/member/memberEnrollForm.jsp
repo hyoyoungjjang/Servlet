@@ -87,7 +87,7 @@
             </table>
             <br><br>
             <div align="center">
-                <button type="submit" onclick="return checkPwd();">회원가입</button>
+                <button type="submit" onclick="return checkPwd();" disabled>회원가입</button>
                 <button type="rest">초기화</button>
             </div>
         </form>     
@@ -127,20 +127,34 @@
              *       success : function(){} -> 성공시 실행해줄 함수
              *       error : function(){} -> 실패시 실행해줄 함수
              * })
-             */   
-            $.ajax({
-                type : "GET",
-                url : "idCheck.me",
-                data : {
-                    checkId : idInput.value
-                },
-                success: function(res){
-                    console.log("성공 : ",res);
-                },
-                error: function(err){
-                    console.log("성공 : ",err);
-                } 
-            })
+             */ 
+            
+                $.ajax({
+                    type : "GET",
+                    url : "idCheck.me",
+                    data : {
+                        checkId : idInput.value
+                    },
+                    success: function(res){
+                        if(res === "NNNNY"){
+                            if(confirm("사용가능한 아이디 입니다. 사용하시겠습니까?")){
+                                idInput.setAttribute("readonly", true);
+
+                                const submitBtn = document.querySelector("#enroll-form button[type=submit]");
+                                submitBtn.removeAttribute("disabled")
+                            } else {
+                                idInput.focus();
+                            }
+                        } else {
+                            alert("사용불가능한 아이디입니다.");
+                            idInput.focus();
+                        }
+                    },
+                    error: function(err){
+                        console.log("실패 : ",err);
+                    } 
+                })
+             
 
         }
     </script>
