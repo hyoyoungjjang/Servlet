@@ -54,7 +54,7 @@ public class MemberInsertController extends HttpServlet {
 		//3)sql요청 => service => dao => sql실행
 		int result = new MemberService().insertMember(m);
 		//4)결과값에따른 페이지 반환
-		
+			RequestDispatcher view;
 		if(result > 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다");
@@ -65,7 +65,7 @@ public class MemberInsertController extends HttpServlet {
 			//에러문구가 보여지는 에러페이지
 			request.setAttribute("errorMsg", "회원가입에 실패하였습니다.");
 			
-			RequestDispatcher view = request.getRequestDispatcher("views/common/errorpage.jsp");
+			view = request.getRequestDispatcher("views/common/errorpage.jsp");
 			view.forward(request, response);
 		}
 	}
